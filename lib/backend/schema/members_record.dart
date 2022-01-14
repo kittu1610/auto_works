@@ -53,6 +53,54 @@ abstract class MembersRecord
   DateTime get dateOfEstablishment;
 
   @nullable
+  String get partnerName1;
+
+  @nullable
+  String get partnerName2;
+
+  @nullable
+  String get partnerEmail1;
+
+  @nullable
+  String get partnerEmail2;
+
+  @nullable
+  String get categories;
+
+  @nullable
+  String get fillRefNo;
+
+  @nullable
+  DateTime get fillDate;
+
+  @nullable
+  String get fillCost;
+
+  @nullable
+  String get mode;
+
+  @nullable
+  String get applicationReceived;
+
+  @nullable
+  String get inward;
+
+  @nullable
+  String get approvedOn;
+
+  @nullable
+  String get receiptNo;
+
+  @nullable
+  DateTime get approvedDate;
+
+  @nullable
+  String get remarks;
+
+  @nullable
+  String get memberImgPath;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -69,7 +117,21 @@ abstract class MembersRecord
     ..panNumber = ''
     ..gstinNumber = ''
     ..webDetail = ''
-    ..phone = '';
+    ..phone = ''
+    ..partnerName1 = ''
+    ..partnerName2 = ''
+    ..partnerEmail1 = ''
+    ..partnerEmail2 = ''
+    ..categories = ''
+    ..fillRefNo = ''
+    ..fillCost = ''
+    ..mode = ''
+    ..applicationReceived = ''
+    ..inward = ''
+    ..approvedOn = ''
+    ..receiptNo = ''
+    ..remarks = ''
+    ..memberImgPath = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('members');
@@ -107,6 +169,22 @@ Map<String, dynamic> createMembersRecordData({
   String webDetail,
   String phone,
   DateTime dateOfEstablishment,
+  String partnerName1,
+  String partnerName2,
+  String partnerEmail1,
+  String partnerEmail2,
+  String categories,
+  String fillRefNo,
+  DateTime fillDate,
+  String fillCost,
+  String mode,
+  String applicationReceived,
+  String inward,
+  String approvedOn,
+  String receiptNo,
+  DateTime approvedDate,
+  String remarks,
+  String memberImgPath,
 }) =>
     serializers.toFirestore(
         MembersRecord.serializer,
@@ -124,4 +202,20 @@ Map<String, dynamic> createMembersRecordData({
           ..gstinNumber = gstinNumber
           ..webDetail = webDetail
           ..phone = phone
-          ..dateOfEstablishment = dateOfEstablishment));
+          ..dateOfEstablishment = dateOfEstablishment
+          ..partnerName1 = partnerName1
+          ..partnerName2 = partnerName2
+          ..partnerEmail1 = partnerEmail1
+          ..partnerEmail2 = partnerEmail2
+          ..categories = categories
+          ..fillRefNo = fillRefNo
+          ..fillDate = fillDate
+          ..fillCost = fillCost
+          ..mode = mode
+          ..applicationReceived = applicationReceived
+          ..inward = inward
+          ..approvedOn = approvedOn
+          ..receiptNo = receiptNo
+          ..approvedDate = approvedDate
+          ..remarks = remarks
+          ..memberImgPath = memberImgPath));

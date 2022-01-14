@@ -12,14 +12,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddMemberWidget extends StatefulWidget {
-  const AddMemberWidget({Key key}) : super(key: key);
+class EditMemberWidget extends StatefulWidget {
+  const EditMemberWidget({
+    Key key,
+    this.memberRef,
+  }) : super(key: key);
+
+  final MembersRecord memberRef;
 
   @override
-  _AddMemberWidgetState createState() => _AddMemberWidgetState();
+  _EditMemberWidgetState createState() => _EditMemberWidgetState();
 }
 
-class _AddMemberWidgetState extends State<AddMemberWidget> {
+class _EditMemberWidgetState extends State<EditMemberWidget> {
   DateTime datePicked1;
   String legalEntryValue;
   TextEditingController emailController;
@@ -54,29 +59,42 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
   @override
   void initState() {
     super.initState();
-    applicationReceivedController = TextEditingController();
-    emailController = TextEditingController();
-    nameController = TextEditingController();
-    feeController = TextEditingController();
-    residenceController = TextEditingController();
-    officeController = TextEditingController();
-    pinCodeController = TextEditingController();
-    talukController = TextEditingController();
-    panNoController = TextEditingController();
-    gstinNoController = TextEditingController();
-    webDetailController = TextEditingController();
-    phoneController = TextEditingController();
-    parterName1Controller = TextEditingController();
-    parterName2Controller = TextEditingController();
-    parterEmail1Controller = TextEditingController();
-    parterEmail2Controller = TextEditingController();
-    fillRefNoController = TextEditingController();
-    fillCostController = TextEditingController();
-    modeController = TextEditingController();
-    inwardController = TextEditingController();
-    approvedOnController = TextEditingController();
-    receiptNoController = TextEditingController();
-    remarksController = TextEditingController();
+    applicationReceivedController =
+        TextEditingController(text: widget.memberRef.applicationReceived);
+    emailController = TextEditingController(text: widget.memberRef.email);
+    nameController = TextEditingController(text: widget.memberRef.name);
+    feeController =
+        TextEditingController(text: widget.memberRef.fee.toString());
+    residenceController =
+        TextEditingController(text: widget.memberRef.residence);
+    officeController = TextEditingController(text: widget.memberRef.office);
+    pinCodeController =
+        TextEditingController(text: widget.memberRef.pincode.toString());
+    talukController = TextEditingController(text: widget.memberRef.taluk);
+    panNoController = TextEditingController(text: widget.memberRef.panNumber);
+    gstinNoController =
+        TextEditingController(text: widget.memberRef.gstinNumber);
+    webDetailController =
+        TextEditingController(text: widget.memberRef.webDetail);
+    phoneController = TextEditingController(text: widget.memberRef.phone);
+    parterName1Controller =
+        TextEditingController(text: widget.memberRef.partnerName1);
+    parterName2Controller =
+        TextEditingController(text: widget.memberRef.partnerName2);
+    parterEmail1Controller =
+        TextEditingController(text: widget.memberRef.partnerEmail1);
+    parterEmail2Controller =
+        TextEditingController(text: widget.memberRef.partnerEmail2);
+    fillRefNoController =
+        TextEditingController(text: widget.memberRef.fillRefNo);
+    fillCostController = TextEditingController(text: widget.memberRef.fillCost);
+    modeController = TextEditingController(text: widget.memberRef.mode);
+    inwardController = TextEditingController(text: widget.memberRef.inward);
+    approvedOnController =
+        TextEditingController(text: widget.memberRef.approvedOn);
+    receiptNoController =
+        TextEditingController(text: widget.memberRef.receiptNo);
+    remarksController = TextEditingController(text: widget.memberRef.remarks);
   }
 
   @override
@@ -88,7 +106,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
         iconTheme: IconThemeData(color: Colors.black),
         automaticallyImplyLeading: true,
         title: Text(
-          'Add member',
+          'Edit member',
           style: FlutterFlowTheme.title1,
         ),
         actions: [],
@@ -111,7 +129,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Add details of new member here',
+                        'Edit details of  member here',
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF0D1724),
@@ -342,7 +360,8 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             ),
                           ),
                           child: FlutterFlowDropDown(
-                            initialOption: legalEntryValue ??= 'Proprietorship',
+                            initialOption: legalEntryValue ??=
+                                widget.memberRef.legalEntry,
                             options: ['Proprietorship', 'Partner'].toList(),
                             onChanged: (val) =>
                                 setState(() => legalEntryValue = val),
@@ -1162,7 +1181,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Establishment Date : ${dateTimeFormat('d/M/y', FFAppState().dateOfEst)}',
+                            'Establishment Date : ${dateTimeFormat('d/M/y', FFAppState().editDateOfEst)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1186,7 +1205,8 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             },
                             currentTime: getCurrentTimestamp,
                           );
-                          setState(() => FFAppState().dateOfEst = datePicked1);
+                          setState(
+                              () => FFAppState().editDateOfEst = datePicked1);
                         },
                       ),
                     ],
@@ -1225,7 +1245,8 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             ),
                           ),
                           child: FlutterFlowDropDown(
-                            initialOption: categoryValue ??= '2 Wheeler spares',
+                            initialOption: categoryValue ??=
+                                widget.memberRef.categories,
                             options: [
                               '2 Wheeler spares',
                               '3 Wheeler spares',
@@ -1336,7 +1357,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().fillDate)}',
+                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().editFillDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1360,7 +1381,8 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             },
                             currentTime: getCurrentTimestamp,
                           );
-                          setState(() => FFAppState().fillDate = datePicked2);
+                          setState(
+                              () => FFAppState().editFillDate = datePicked2);
                         },
                       ),
                     ],
@@ -1756,7 +1778,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Approved Date : ${dateTimeFormat('d/M/y', FFAppState().approvedDate)}',
+                            'Approved Date : ${dateTimeFormat('d/M/y', FFAppState().editAprovedDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1781,7 +1803,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             currentTime: getCurrentTimestamp,
                           );
                           setState(
-                              () => FFAppState().approvedDate = datePicked3);
+                              () => FFAppState().editAprovedDate = datePicked3);
                         },
                       ),
                     ],
@@ -1927,70 +1949,105 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                     ),
                   ],
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.95, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        final membersCreateData = createMembersRecordData(
-                          uid: currentUserUid,
-                          name: nameController.text,
-                          email: talukController.text,
-                          fee: double.parse(feeController.text),
-                          legalEntry: legalEntryValue,
-                          residence: residenceController.text,
-                          office: officeController.text,
-                          pincode: int.parse(pinCodeController.text),
-                          taluk: talukController.text,
-                          panNumber: panNoController.text,
-                          gstinNumber: gstinNoController.text,
-                          webDetail: webDetailController.text,
-                          phone: phoneController.text,
-                          dateOfEstablishment: FFAppState().dateOfEst,
-                          partnerName1: parterName1Controller.text,
-                          partnerName2: parterName2Controller.text,
-                          partnerEmail1: parterEmail1Controller.text,
-                          partnerEmail2: parterEmail2Controller.text,
-                          categories: categoryValue,
-                          fillRefNo: fillRefNoController.text,
-                          fillDate: FFAppState().fillDate,
-                          fillCost: fillCostController.text,
-                          mode: modeController.text,
-                          applicationReceived:
-                              applicationReceivedController.text,
-                          inward: inwardController.text,
-                          approvedOn: approvedOnController.text,
-                          receiptNo: receiptNoController.text,
-                          approvedDate: FFAppState().approvedDate,
-                          remarks: remarksController.text,
-                          memberImgPath: FFAppState().memberImgPath,
-                        );
-                        await MembersRecord.collection
-                            .doc()
-                            .set(membersCreateData);
-                        Navigator.pop(context);
-                      },
-                      text: 'Add',
-                      options: FFButtonOptions(
-                        width: 140,
-                        height: 60,
-                        color: FlutterFlowTheme.primaryColor,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            await widget.memberRef.reference.delete();
+                            Navigator.pop(context);
+                          },
+                          text: 'Delete',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.tertiaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFFE53935),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Color(0xFFE53935),
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
                         ),
-                        elevation: 2,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 2,
-                        ),
-                        borderRadius: 8,
                       ),
                     ),
-                  ),
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            final membersUpdateData = createMembersRecordData(
+                              uid: currentUserUid,
+                              name: nameController.text,
+                              email: emailController.text,
+                              fee: double.parse(feeController.text),
+                              legalEntry: legalEntryValue,
+                              residence: residenceController.text,
+                              office: officeController.text,
+                              pincode: int.parse(pinCodeController.text),
+                              taluk: talukController.text,
+                              panNumber: panNoController.text,
+                              gstinNumber: gstinNoController.text,
+                              webDetail: webDetailController.text,
+                              phone: phoneController.text,
+                              dateOfEstablishment: FFAppState().editDateOfEst,
+                              partnerName1: parterName1Controller.text,
+                              partnerName2: parterName2Controller.text,
+                              partnerEmail1: parterEmail1Controller.text,
+                              partnerEmail2: parterEmail2Controller.text,
+                              categories: categoryValue,
+                              fillRefNo: fillRefNoController.text,
+                              fillDate: FFAppState().editFillDate,
+                              fillCost: fillCostController.text,
+                              mode: modeController.text,
+                              applicationReceived:
+                                  applicationReceivedController.text,
+                              inward: inwardController.text,
+                              approvedOn: approvedOnController.text,
+                              receiptNo: receiptNoController.text,
+                              approvedDate: FFAppState().editAprovedDate,
+                              remarks: remarksController.text,
+                              memberImgPath: FFAppState().editMemberImgPath,
+                            );
+                            await widget.memberRef.reference
+                                .update(membersUpdateData);
+                            Navigator.pop(context);
+                          },
+                          text: 'Update',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

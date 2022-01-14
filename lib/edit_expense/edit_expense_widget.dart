@@ -9,14 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddExpenseWidget extends StatefulWidget {
-  const AddExpenseWidget({Key key}) : super(key: key);
+class EditExpenseWidget extends StatefulWidget {
+  const EditExpenseWidget({
+    Key key,
+    this.expenseRef,
+  }) : super(key: key);
+
+  final ExpenseRecord expenseRef;
 
   @override
-  _AddExpenseWidgetState createState() => _AddExpenseWidgetState();
+  _EditExpenseWidgetState createState() => _EditExpenseWidgetState();
 }
 
-class _AddExpenseWidgetState extends State<AddExpenseWidget> {
+class _EditExpenseWidgetState extends State<EditExpenseWidget> {
   DateTime datePicked;
   TextEditingController amountController;
   TextEditingController categoryController;
@@ -27,9 +32,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
   @override
   void initState() {
     super.initState();
-    amountController = TextEditingController();
-    categoryController = TextEditingController();
-    descriptionController = TextEditingController();
+    amountController = TextEditingController(text: widget.expenseRef.amount);
+    categoryController =
+        TextEditingController(text: widget.expenseRef.category);
+    descriptionController =
+        TextEditingController(text: widget.expenseRef.description);
   }
 
   @override
@@ -43,7 +50,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
           iconTheme: IconThemeData(color: Colors.black),
           automaticallyImplyLeading: true,
           title: Text(
-            'Add Expense',
+            'Edit Expense',
             style: FlutterFlowTheme.title1,
           ),
           actions: [],
@@ -65,7 +72,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Add new expense here',
+                        'Edit expense here',
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF0D1724),
@@ -99,7 +106,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Description',
-                                labelStyle: FlutterFlowTheme.subtitle2,
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -121,7 +132,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.subtitle2,
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -160,7 +175,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Category',
-                                labelStyle: FlutterFlowTheme.subtitle2,
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -182,7 +201,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.subtitle2,
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -221,7 +244,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Amount',
-                                labelStyle: FlutterFlowTheme.subtitle2,
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -243,7 +270,11 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.subtitle2,
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -276,7 +307,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Date : ${dateTimeFormat('d/M/y', FFAppState().expenseDate)}',
+                            'Date : ${dateTimeFormat('d/M/y', FFAppState().editExpenseDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -300,53 +331,90 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                             },
                             currentTime: getCurrentTimestamp,
                           );
-                          setState(() => FFAppState().expenseDate = datePicked);
+                          setState(
+                              () => FFAppState().editExpenseDate = datePicked);
                         },
                       ),
                     ],
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.95, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        if (!formKey.currentState.validate()) {
-                          return;
-                        }
-                        final expenseCreateData = createExpenseRecordData(
-                          uid: currentUserUid,
-                          description: descriptionController.text,
-                          category: categoryController.text,
-                          amount: amountController.text,
-                          date: FFAppState().expenseDate,
-                        );
-                        await ExpenseRecord.collection
-                            .doc()
-                            .set(expenseCreateData);
-                        Navigator.pop(context);
-                      },
-                      text: 'Add',
-                      options: FFButtonOptions(
-                        width: 140,
-                        height: 60,
-                        color: FlutterFlowTheme.primaryColor,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            await widget.expenseRef.reference.delete();
+                            Navigator.pop(context);
+                          },
+                          text: 'Delete',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.tertiaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFFE53935),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Color(0xFFE53935),
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
                         ),
-                        elevation: 2,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 2,
-                        ),
-                        borderRadius: 8,
                       ),
                     ),
-                  ),
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            if (!formKey.currentState.validate()) {
+                              return;
+                            }
+                            final expenseUpdateData = createExpenseRecordData(
+                              uid: currentUserUid,
+                              description: descriptionController.text,
+                              category: categoryController.text,
+                              amount: amountController.text,
+                              date: FFAppState().editExpenseDate,
+                            );
+                            await widget.expenseRef.reference
+                                .update(expenseUpdateData);
+                            Navigator.pop(context);
+                          },
+                          text: 'Update',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

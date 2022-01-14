@@ -24,6 +24,39 @@ class FFAppState {
     _passbookDate = prefs.containsKey('ff_passbookDate')
         ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_passbookDate'))
         : null;
+    _editIncomeDate = prefs.containsKey('ff_editIncomeDate')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_editIncomeDate'))
+        : null;
+    _totalIncomeAmount =
+        prefs.getDouble('ff_totalIncomeAmount') ?? _totalIncomeAmount;
+    _totalExpenseAmount =
+        prefs.getDouble('ff_totalExpenseAmount') ?? _totalExpenseAmount;
+    _editExpenseDate = prefs.containsKey('ff_editExpenseDate')
+        ? DateTime.fromMillisecondsSinceEpoch(
+            prefs.getInt('ff_editExpenseDate'))
+        : null;
+    _dateOfEst = prefs.containsKey('ff_dateOfEst')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_dateOfEst'))
+        : null;
+    _fillDate = prefs.containsKey('ff_fillDate')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_fillDate'))
+        : null;
+    _approvedDate = prefs.containsKey('ff_approvedDate')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_approvedDate'))
+        : null;
+    _memberImgPath = prefs.getString('ff_memberImgPath') ?? _memberImgPath;
+    _editDateOfEst = prefs.containsKey('ff_editDateOfEst')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_editDateOfEst'))
+        : null;
+    _editFillDate = prefs.containsKey('ff_editFillDate')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_editFillDate'))
+        : null;
+    _editAprovedDate = prefs.containsKey('ff_editAprovedDate')
+        ? DateTime.fromMillisecondsSinceEpoch(
+            prefs.getInt('ff_editAprovedDate'))
+        : null;
+    _editMemberImgPath =
+        prefs.getString('ff_editMemberImgPath') ?? _editMemberImgPath;
   }
 
   SharedPreferences prefs;
@@ -54,6 +87,90 @@ class FFAppState {
   set passbookDate(DateTime _value) {
     _passbookDate = _value;
     prefs.setInt('ff_passbookDate', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _editIncomeDate;
+  DateTime get editIncomeDate => _editIncomeDate;
+  set editIncomeDate(DateTime _value) {
+    _editIncomeDate = _value;
+    prefs.setInt('ff_editIncomeDate', _value.millisecondsSinceEpoch);
+  }
+
+  double _totalIncomeAmount = 0.0;
+  double get totalIncomeAmount => _totalIncomeAmount;
+  set totalIncomeAmount(double _value) {
+    _totalIncomeAmount = _value;
+    prefs.setDouble('ff_totalIncomeAmount', _value);
+  }
+
+  double _totalExpenseAmount = 0.0;
+  double get totalExpenseAmount => _totalExpenseAmount;
+  set totalExpenseAmount(double _value) {
+    _totalExpenseAmount = _value;
+    prefs.setDouble('ff_totalExpenseAmount', _value);
+  }
+
+  DateTime _editExpenseDate;
+  DateTime get editExpenseDate => _editExpenseDate;
+  set editExpenseDate(DateTime _value) {
+    _editExpenseDate = _value;
+    prefs.setInt('ff_editExpenseDate', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _dateOfEst;
+  DateTime get dateOfEst => _dateOfEst;
+  set dateOfEst(DateTime _value) {
+    _dateOfEst = _value;
+    prefs.setInt('ff_dateOfEst', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _fillDate;
+  DateTime get fillDate => _fillDate;
+  set fillDate(DateTime _value) {
+    _fillDate = _value;
+    prefs.setInt('ff_fillDate', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _approvedDate;
+  DateTime get approvedDate => _approvedDate;
+  set approvedDate(DateTime _value) {
+    _approvedDate = _value;
+    prefs.setInt('ff_approvedDate', _value.millisecondsSinceEpoch);
+  }
+
+  String _memberImgPath;
+  String get memberImgPath => _memberImgPath;
+  set memberImgPath(String _value) {
+    _memberImgPath = _value;
+    prefs.setString('ff_memberImgPath', _value);
+  }
+
+  DateTime _editDateOfEst;
+  DateTime get editDateOfEst => _editDateOfEst;
+  set editDateOfEst(DateTime _value) {
+    _editDateOfEst = _value;
+    prefs.setInt('ff_editDateOfEst', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _editFillDate;
+  DateTime get editFillDate => _editFillDate;
+  set editFillDate(DateTime _value) {
+    _editFillDate = _value;
+    prefs.setInt('ff_editFillDate', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _editAprovedDate;
+  DateTime get editAprovedDate => _editAprovedDate;
+  set editAprovedDate(DateTime _value) {
+    _editAprovedDate = _value;
+    prefs.setInt('ff_editAprovedDate', _value.millisecondsSinceEpoch);
+  }
+
+  String _editMemberImgPath;
+  String get editMemberImgPath => _editMemberImgPath;
+  set editMemberImgPath(String _value) {
+    _editMemberImgPath = _value;
+    prefs.setString('ff_editMemberImgPath', _value);
   }
 }
 

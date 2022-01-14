@@ -124,6 +124,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget> {
                       email: resetEmailAddressController.text,
                       context: context,
                     );
+                    Navigator.pop(context);
                   },
                   text: 'Send',
                   options: FFButtonOptions(

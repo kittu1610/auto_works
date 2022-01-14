@@ -17,10 +17,8 @@ class AddIncomeWidget extends StatefulWidget {
 }
 
 class _AddIncomeWidgetState extends State<AddIncomeWidget> {
-  DateTime datePicked1;
-  TextEditingController amountController2;
-  DateTime datePicked2;
-  TextEditingController amountController1;
+  DateTime datePicked;
+  TextEditingController amountController;
   TextEditingController categoryController;
   TextEditingController descriptionController;
   final formKey = GlobalKey<FormState>();
@@ -29,11 +27,9 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
   @override
   void initState() {
     super.initState();
-    amountController1 = TextEditingController();
+    amountController = TextEditingController();
     categoryController = TextEditingController();
     descriptionController = TextEditingController();
-    amountController2 = TextEditingController(
-        text: dateTimeFormat('d/M/y', FFAppState().incomeDate));
   }
 
   @override
@@ -103,11 +99,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Description',
-                                labelStyle: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF8B97A2),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                labelStyle: FlutterFlowTheme.subtitle2,
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -129,11 +121,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF8B97A2),
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.subtitle2,
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -172,11 +160,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Category',
-                                labelStyle: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF8B97A2),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                labelStyle: FlutterFlowTheme.subtitle2,
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -198,11 +182,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF8B97A2),
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.subtitle2,
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -237,15 +217,11 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
                             child: TextFormField(
-                              controller: amountController1,
+                              controller: amountController,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Amount',
-                                labelStyle: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF8B97A2),
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                labelStyle: FlutterFlowTheme.subtitle2,
                                 enabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0x00000000),
@@ -267,11 +243,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                                   ),
                                 ),
                               ),
-                              style: FlutterFlowTheme.bodyText2.override(
-                                fontFamily: 'Montserrat',
-                                color: Color(0xFF8B97A2),
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.subtitle2,
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return 'This cannot be empty';
@@ -292,70 +264,20 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: InkWell(
-                          onTap: () async {
-                            await DatePicker.showDatePicker(
-                              context,
-                              showTitleActions: true,
-                              onConfirm: (date) {
-                                setState(() => datePicked1 = date);
-                              },
-                              currentTime: getCurrentTimestamp,
-                              minTime: getCurrentTimestamp,
-                            );
-                          },
-                          child: Container(
-                            width: 330,
-                            height: 60,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(
-                                color: Color(0xFFE6E6E6),
-                              ),
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
                             ),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
-                              child: TextFormField(
-                                controller: amountController2,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Date',
-                                  labelStyle:
-                                      FlutterFlowTheme.bodyText2.override(
-                                    fontFamily: 'Montserrat',
-                                    color: Color(0xFF8B97A2),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0x00000000),
-                                      width: 1,
-                                    ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Montserrat',
-                                  color: Color(0xFF8B97A2),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Date : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            style: FlutterFlowTheme.title3,
                           ),
                         ),
                       ),
@@ -365,7 +287,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                         borderWidth: 1,
                         buttonSize: 60,
                         icon: Icon(
-                          Icons.edit_sharp,
+                          Icons.date_range,
                           color: Colors.black,
                           size: 30,
                         ),
@@ -374,12 +296,11 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                             context,
                             showTitleActions: true,
                             onConfirm: (date) {
-                              setState(() => datePicked2 = date);
+                              setState(() => datePicked = date);
                             },
                             currentTime: getCurrentTimestamp,
-                            minTime: getCurrentTimestamp,
                           );
-                          setState(() => FFAppState().incomeDate = datePicked1);
+                          setState(() => FFAppState().incomeDate = datePicked);
                         },
                       ),
                     ],
@@ -398,7 +319,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           uid: currentUserUid,
                           description: descriptionController.text,
                           category: categoryController.text,
-                          amount: amountController2.text,
+                          amount: amountController.text,
                           date: FFAppState().incomeDate,
                         );
                         await IncomeRecord.collection
