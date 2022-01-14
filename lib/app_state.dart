@@ -24,6 +24,17 @@ class FFAppState {
     _passbookDate = prefs.containsKey('ff_passbookDate')
         ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_passbookDate'))
         : null;
+    _editIncomeDate = prefs.containsKey('ff_editIncomeDate')
+        ? DateTime.fromMillisecondsSinceEpoch(prefs.getInt('ff_editIncomeDate'))
+        : null;
+    _totalIncomeAmount =
+        prefs.getDouble('ff_totalIncomeAmount') ?? _totalIncomeAmount;
+    _totalExpenseAmount =
+        prefs.getDouble('ff_totalExpenseAmount') ?? _totalExpenseAmount;
+    _editExpenseDate = prefs.containsKey('ff_editExpenseDate')
+        ? DateTime.fromMillisecondsSinceEpoch(
+            prefs.getInt('ff_editExpenseDate'))
+        : null;
   }
 
   SharedPreferences prefs;
@@ -54,6 +65,34 @@ class FFAppState {
   set passbookDate(DateTime _value) {
     _passbookDate = _value;
     prefs.setInt('ff_passbookDate', _value.millisecondsSinceEpoch);
+  }
+
+  DateTime _editIncomeDate;
+  DateTime get editIncomeDate => _editIncomeDate;
+  set editIncomeDate(DateTime _value) {
+    _editIncomeDate = _value;
+    prefs.setInt('ff_editIncomeDate', _value.millisecondsSinceEpoch);
+  }
+
+  double _totalIncomeAmount = 0.0;
+  double get totalIncomeAmount => _totalIncomeAmount;
+  set totalIncomeAmount(double _value) {
+    _totalIncomeAmount = _value;
+    prefs.setDouble('ff_totalIncomeAmount', _value);
+  }
+
+  double _totalExpenseAmount = 0.0;
+  double get totalExpenseAmount => _totalExpenseAmount;
+  set totalExpenseAmount(double _value) {
+    _totalExpenseAmount = _value;
+    prefs.setDouble('ff_totalExpenseAmount', _value);
+  }
+
+  DateTime _editExpenseDate;
+  DateTime get editExpenseDate => _editExpenseDate;
+  set editExpenseDate(DateTime _value) {
+    _editExpenseDate = _value;
+    prefs.setInt('ff_editExpenseDate', _value.millisecondsSinceEpoch);
   }
 }
 

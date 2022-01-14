@@ -8,14 +8,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddMemberWidget extends StatefulWidget {
-  const AddMemberWidget({Key key}) : super(key: key);
+class EditMemberWidget extends StatefulWidget {
+  const EditMemberWidget({
+    Key key,
+    this.memberRef,
+  }) : super(key: key);
+
+  final MembersRecord memberRef;
 
   @override
-  _AddMemberWidgetState createState() => _AddMemberWidgetState();
+  _EditMemberWidgetState createState() => _EditMemberWidgetState();
 }
 
-class _AddMemberWidgetState extends State<AddMemberWidget> {
+class _EditMemberWidgetState extends State<EditMemberWidget> {
   String legalEntryValue;
   TextEditingController emailController;
   TextEditingController nameController;
@@ -29,13 +34,16 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
-    nameController = TextEditingController();
-    feeController = TextEditingController();
-    residenceController = TextEditingController();
-    officeController = TextEditingController();
-    pinCodeController = TextEditingController();
-    talukController = TextEditingController();
+    emailController = TextEditingController(text: widget.memberRef.email);
+    nameController = TextEditingController(text: widget.memberRef.name);
+    feeController =
+        TextEditingController(text: widget.memberRef.fee.toString());
+    residenceController =
+        TextEditingController(text: widget.memberRef.residence);
+    officeController = TextEditingController(text: widget.memberRef.office);
+    pinCodeController =
+        TextEditingController(text: widget.memberRef.pincode.toString());
+    talukController = TextEditingController(text: widget.memberRef.taluk);
   }
 
   @override
@@ -47,7 +55,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
         iconTheme: IconThemeData(color: Colors.black),
         automaticallyImplyLeading: true,
         title: Text(
-          'Add member',
+          'Edit member',
           style: FlutterFlowTheme.title1,
         ),
         actions: [],
@@ -70,7 +78,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Add details of new member here',
+                        'Edit details of  member here',
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Montserrat',
                           color: Color(0xFF0D1724),
@@ -301,7 +309,8 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                             ),
                           ),
                           child: FlutterFlowDropDown(
-                            initialOption: legalEntryValue ??= 'Proprietorship',
+                            initialOption: legalEntryValue ??=
+                                widget.memberRef.legalEntry,
                             options: ['Proprietorship', 'Partner'].toList(),
                             onChanged: (val) =>
                                 setState(() => legalEntryValue = val),
@@ -521,6 +530,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                                 color: Color(0xFF8B97A2),
                                 fontWeight: FontWeight.w500,
                               ),
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                         ),
@@ -590,48 +600,83 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: AlignmentDirectional(0.95, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        final membersCreateData = createMembersRecordData(
-                          uid: currentUserUid,
-                          name: nameController.text,
-                          email: talukController.text,
-                          fee: double.parse(feeController.text),
-                          legalEntry: legalEntryValue,
-                          residence: residenceController.text,
-                          office: officeController.text,
-                          pincode: int.parse(pinCodeController.text),
-                          taluk: talukController.text,
-                        );
-                        await MembersRecord.collection
-                            .doc()
-                            .set(membersCreateData);
-                        Navigator.pop(context);
-                      },
-                      text: 'Add',
-                      options: FFButtonOptions(
-                        width: 140,
-                        height: 60,
-                        color: FlutterFlowTheme.primaryColor,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Montserrat',
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            await widget.memberRef.reference.delete();
+                            Navigator.pop(context);
+                          },
+                          text: 'Delete',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.tertiaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Color(0xFFE53935),
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Color(0xFFE53935),
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
                         ),
-                        elevation: 2,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 2,
-                        ),
-                        borderRadius: 8,
                       ),
                     ),
-                  ),
+                    Align(
+                      alignment: AlignmentDirectional(0.95, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            final membersUpdateData = createMembersRecordData(
+                              uid: currentUserUid,
+                              name: nameController.text,
+                              email: emailController.text,
+                              fee: double.parse(feeController.text),
+                              legalEntry: legalEntryValue,
+                              residence: residenceController.text,
+                              office: officeController.text,
+                              pincode: int.parse(pinCodeController.text),
+                              taluk: talukController.text,
+                            );
+                            await widget.memberRef.reference
+                                .update(membersUpdateData);
+                            Navigator.pop(context);
+                          },
+                          text: 'Add',
+                          options: FFButtonOptions(
+                            width: 140,
+                            height: 60,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Montserrat',
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            elevation: 2,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 2,
+                            ),
+                            borderRadius: 8,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
