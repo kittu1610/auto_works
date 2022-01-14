@@ -1162,7 +1162,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Date of Establishment : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            'Establishment Date : ${dateTimeFormat('d/M/y', FFAppState().dateOfEst)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1336,7 +1336,7 @@ class _AddMemberWidgetState extends State<AddMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().fillDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),

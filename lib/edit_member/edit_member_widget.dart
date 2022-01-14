@@ -1181,7 +1181,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Date of Establishment : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            'Establishment Date : ${dateTimeFormat('d/M/y', FFAppState().editDateOfEst)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1357,7 +1357,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().editFillDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
@@ -1778,7 +1778,7 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            'Approved Date : ${dateTimeFormat('d/M/y', FFAppState().approvedDate)}',
+                            'Approved Date : ${dateTimeFormat('d/M/y', FFAppState().editAprovedDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
