@@ -276,7 +276,7 @@ class _AddExpenseWidgetState extends State<AddExpenseWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            dateTimeFormat('d/M/y', FFAppState().expenseDate),
+                            'Date : ${dateTimeFormat('d/M/y', FFAppState().expenseDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),

@@ -7,6 +7,7 @@ import '../edit_income/edit_income_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -400,218 +401,70 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                         ),
                       ],
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.tertiaryColor,
+                    StreamBuilder<List<IncomeRecord>>(
+                      stream: queryIncomeRecord(
+                        queryBuilder: (incomeRecord) => incomeRecord
+                            .where('uid', isEqualTo: currentUserUid),
                       ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                              child: StreamBuilder<List<IncomeRecord>>(
-                                stream: queryIncomeRecord(
-                                  queryBuilder: (incomeRecord) => incomeRecord
-                                      .where('uid', isEqualTo: currentUserUid),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.primaryColor,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<IncomeRecord> cardIncomeRecordList =
-                                      snapshot.data;
-                                  return Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color(0xFFF5F5F5),
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 20, 20, 20),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12, 0, 0, 0),
-                                            child: Text(
-                                              'Total Income Balance',
-                                              style: FlutterFlowTheme.title2,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12, 4, 0, 0),
-                                            child: Text(
-                                              valueOrDefault<String>(
-                                                functions
-                                                    .getIncome(
-                                                        cardIncomeRecordList
-                                                            .toList())
-                                                    .toString(),
-                                                '0',
-                                              ),
-                                              style: FlutterFlowTheme.title1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Colors.black,
-                                                fontSize: 32,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(
+                                color: FlutterFlowTheme.primaryColor,
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-                              child: StreamBuilder<List<ExpenseRecord>>(
-                                stream: queryExpenseRecord(
-                                  queryBuilder: (expenseRecord) => expenseRecord
-                                      .where('uid', isEqualTo: currentUserUid),
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: 50,
-                                        child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.primaryColor,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<ExpenseRecord> cardExpenseRecordList =
-                                      snapshot.data;
-                                  return Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: Color(0xFFF5F5F5),
-                                    elevation: 4,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 20, 20, 20),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12, 0, 0, 0),
-                                            child: Text(
-                                              'Total Expense Balance',
-                                              style: FlutterFlowTheme.title2,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12, 4, 0, 0),
-                                            child: Text(
-                                              valueOrDefault<String>(
-                                                functions
-                                                    .getExpense(
-                                                        cardExpenseRecordList
-                                                            .toList())
-                                                    .toString(),
-                                                '0',
-                                              ),
-                                              style: FlutterFlowTheme.title1
-                                                  .override(
-                                                fontFamily: 'Poppins',
-                                                color: Colors.black,
-                                                fontSize: 32,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                          );
+                        }
+                        List<IncomeRecord> containerIncomeRecordList =
+                            snapshot.data;
+                        return Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color: Color(0x00EEEEEE),
+                          ),
+                          child: StreamBuilder<List<ExpenseRecord>>(
+                            stream: queryExpenseRecord(
+                              queryBuilder: (expenseRecord) => expenseRecord
+                                  .where('uid', isEqualTo: currentUserUid),
                             ),
-                            StreamBuilder<List<IncomeRecord>>(
-                              stream: queryIncomeRecord(
-                                queryBuilder: (incomeRecord) => incomeRecord
-                                    .where('uid', isEqualTo: currentUserUid),
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: CircularProgressIndicator(
-                                        color: FlutterFlowTheme.primaryColor,
-                                      ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: CircularProgressIndicator(
+                                      color: FlutterFlowTheme.primaryColor,
                                     ),
-                                  );
-                                }
-                                List<IncomeRecord> containerIncomeRecordList =
-                                    snapshot.data;
-                                return Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.8,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Color(0x00EEEEEE),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 20, 0, 20),
-                                    child: StreamBuilder<List<ExpenseRecord>>(
-                                      stream: queryExpenseRecord(
-                                        queryBuilder: (expenseRecord) =>
-                                            expenseRecord.where('uid',
-                                                isEqualTo: currentUserUid),
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: CircularProgressIndicator(
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        List<ExpenseRecord>
-                                            cardExpenseRecordList =
-                                            snapshot.data;
-                                        return Card(
+                                );
+                              }
+                              List<ExpenseRecord> containerExpenseRecordList =
+                                  snapshot.data;
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 20, 0, 20),
+                                        child: Card(
                                           clipBehavior:
                                               Clip.antiAliasWithSaveLayer,
                                           color: Color(0xFFF5F5F5),
@@ -631,7 +484,7 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(12, 0, 0, 0),
                                                   child: Text(
-                                                    'Total Balance',
+                                                    'Total Income Balance',
                                                     style:
                                                         FlutterFlowTheme.title2,
                                                   ),
@@ -642,15 +495,11 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                                                   child: Text(
                                                     valueOrDefault<String>(
                                                       functions
-                                                          .total(
-                                                              functions.getIncome(
-                                                                  containerIncomeRecordList
-                                                                      .toList()),
-                                                              functions.getExpense(
-                                                                  cardExpenseRecordList
-                                                                      .toList()))
+                                                          .getIncome(
+                                                              containerIncomeRecordList
+                                                                  .toList())
                                                           .toString(),
-                                                      '0.0',
+                                                      '0',
                                                     ),
                                                     style: FlutterFlowTheme
                                                         .title1
@@ -664,48 +513,182 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                                               ],
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 16, 0, 16),
-                                child: FFButtonWidget(
-                                  onPressed: () {
-                                    print('Button pressed ...');
-                                  },
-                                  text: 'Income',
-                                  icon: Icon(
-                                    Icons.file_download,
-                                    size: 15,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: 140,
-                                    height: 60,
-                                    color: FlutterFlowTheme.primaryColor,
-                                    textStyle: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Poppins',
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                    ),
-                                    elevation: 2,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 2,
-                                    ),
-                                    borderRadius: 8,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 20, 0, 20),
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFFF5F5F5),
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 20, 20, 20),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 0, 0),
+                                                  child: Text(
+                                                    'Total Expense Balance',
+                                                    style:
+                                                        FlutterFlowTheme.title2,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(12, 4, 0, 0),
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .getExpense(
+                                                              containerExpenseRecordList
+                                                                  .toList())
+                                                          .toString(),
+                                                      '0',
+                                                    ),
+                                                    style: FlutterFlowTheme
+                                                        .title1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                      fontSize: 32,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.8,
+                                        height: 200,
+                                        decoration: BoxDecoration(
+                                          color: Color(0x00EEEEEE),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 20, 0, 20),
+                                          child: Card(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            color: Color(0xFFF5F5F5),
+                                            elevation: 4,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(20, 20, 20, 20),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                12, 0, 0, 0),
+                                                    child: Text(
+                                                      'Total Balance',
+                                                      style: FlutterFlowTheme
+                                                          .title2,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                12, 4, 0, 0),
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        functions
+                                                            .total(
+                                                                functions.getIncome(
+                                                                    containerIncomeRecordList
+                                                                        .toList()),
+                                                                functions.getExpense(
+                                                                    containerExpenseRecordList
+                                                                        .toList()))
+                                                            .toString(),
+                                                        '0.0',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                          .title1
+                                                          .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.black,
+                                                        fontSize: 32,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 16, 0, 16),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              await actions.download(
+                                                containerIncomeRecordList
+                                                    .toList(),
+                                                containerExpenseRecordList
+                                                    .toList(),
+                                              );
+                                            },
+                                            text: 'Income',
+                                            icon: Icon(
+                                              Icons.file_download,
+                                              size: 15,
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 140,
+                                              height: 60,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                              elevation: 2,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2,
+                                              ),
+                                              borderRadius: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                              );
+                            },
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

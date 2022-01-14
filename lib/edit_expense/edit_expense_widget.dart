@@ -307,8 +307,7 @@ class _EditExpenseWidgetState extends State<EditExpenseWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            dateTimeFormat(
-                                'd/M/y', FFAppState().editExpenseDate),
+                            'Date : ${dateTimeFormat('d/M/y', FFAppState().editExpenseDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),

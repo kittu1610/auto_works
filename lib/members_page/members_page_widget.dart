@@ -87,6 +87,14 @@ class _MembersPageWidgetState extends State<MembersPageWidget> {
                           ),
                           child: InkWell(
                             onTap: () async {
+                              setState(() => FFAppState().editDateOfEst =
+                                  listViewMembersRecord.dateOfEstablishment);
+                              setState(() => FFAppState().editFillDate =
+                                  listViewMembersRecord.fillDate);
+                              setState(() => FFAppState().editAprovedDate =
+                                  listViewMembersRecord.approvedDate);
+                              setState(() => FFAppState().editMemberImgPath =
+                                  listViewMembersRecord.memberImgPath);
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -138,6 +146,12 @@ class _MembersPageWidgetState extends State<MembersPageWidget> {
                   alignment: AlignmentDirectional(-0.15, 0),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      setState(
+                          () => FFAppState().dateOfEst = getCurrentTimestamp);
+                      setState(
+                          () => FFAppState().fillDate = getCurrentTimestamp);
+                      setState(() =>
+                          FFAppState().approvedDate = getCurrentTimestamp);
                       await Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -1,11 +1,15 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditMemberWidget extends StatefulWidget {
@@ -21,6 +25,7 @@ class EditMemberWidget extends StatefulWidget {
 }
 
 class _EditMemberWidgetState extends State<EditMemberWidget> {
+  DateTime datePicked1;
   String legalEntryValue;
   TextEditingController emailController;
   TextEditingController nameController;
@@ -29,11 +34,33 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
   TextEditingController officeController;
   TextEditingController pinCodeController;
   TextEditingController talukController;
+  TextEditingController panNoController;
+  TextEditingController gstinNoController;
+  TextEditingController webDetailController;
+  TextEditingController phoneController;
+  TextEditingController parterName1Controller;
+  TextEditingController parterName2Controller;
+  TextEditingController parterEmail1Controller;
+  TextEditingController parterEmail2Controller;
+  String categoryValue;
+  TextEditingController fillRefNoController;
+  DateTime datePicked2;
+  TextEditingController fillCostController;
+  TextEditingController modeController;
+  TextEditingController applicationReceivedController;
+  TextEditingController inwardController;
+  TextEditingController approvedOnController;
+  TextEditingController receiptNoController;
+  DateTime datePicked3;
+  TextEditingController remarksController;
+  String uploadedFileUrl = '';
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    applicationReceivedController =
+        TextEditingController(text: widget.memberRef.applicationReceived);
     emailController = TextEditingController(text: widget.memberRef.email);
     nameController = TextEditingController(text: widget.memberRef.name);
     feeController =
@@ -44,6 +71,30 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
     pinCodeController =
         TextEditingController(text: widget.memberRef.pincode.toString());
     talukController = TextEditingController(text: widget.memberRef.taluk);
+    panNoController = TextEditingController(text: widget.memberRef.panNumber);
+    gstinNoController =
+        TextEditingController(text: widget.memberRef.gstinNumber);
+    webDetailController =
+        TextEditingController(text: widget.memberRef.webDetail);
+    phoneController = TextEditingController(text: widget.memberRef.phone);
+    parterName1Controller =
+        TextEditingController(text: widget.memberRef.partnerName1);
+    parterName2Controller =
+        TextEditingController(text: widget.memberRef.partnerName2);
+    parterEmail1Controller =
+        TextEditingController(text: widget.memberRef.partnerEmail1);
+    parterEmail2Controller =
+        TextEditingController(text: widget.memberRef.partnerEmail2);
+    fillRefNoController =
+        TextEditingController(text: widget.memberRef.fillRefNo);
+    fillCostController = TextEditingController(text: widget.memberRef.fillCost);
+    modeController = TextEditingController(text: widget.memberRef.mode);
+    inwardController = TextEditingController(text: widget.memberRef.inward);
+    approvedOnController =
+        TextEditingController(text: widget.memberRef.approvedOn);
+    receiptNoController =
+        TextEditingController(text: widget.memberRef.receiptNo);
+    remarksController = TextEditingController(text: widget.memberRef.remarks);
   }
 
   @override
@@ -530,7 +581,6 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                                 color: Color(0xFF8B97A2),
                                 fontWeight: FontWeight.w500,
                               ),
-                              keyboardType: TextInputType.number,
                             ),
                           ),
                         ),
@@ -600,6 +650,1305 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                     ],
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Other Details',
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Montserrat',
+                          color: Color(0xFF0D1724),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: panNoController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Pan Number',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: gstinNoController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'GSTIN number',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: webDetailController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Web Detail',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: phoneController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Phone',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                              keyboardType: TextInputType.phone,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: parterName1Controller,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Parter Name 1',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: parterName2Controller,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Parter Name 2',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: parterEmail1Controller,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Parter Email 1',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: parterEmail2Controller,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Parter Email 2',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Date of Establishment : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            style: FlutterFlowTheme.title3,
+                          ),
+                        ),
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        buttonSize: 60,
+                        icon: Icon(
+                          Icons.date_range,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          await DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            onConfirm: (date) {
+                              setState(() => datePicked1 = date);
+                            },
+                            currentTime: getCurrentTimestamp,
+                          );
+                          setState(
+                              () => FFAppState().editDateOfEst = datePicked1);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Select Category',
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Montserrat',
+                          color: Color(0xFF0D1724),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: FlutterFlowDropDown(
+                            initialOption: categoryValue ??=
+                                widget.memberRef.categories,
+                            options: [
+                              '2 Wheeler spares',
+                              '3 Wheeler spares',
+                              '4 Wheeler spares',
+                              'LCV spares',
+                              'HCV spares'
+                            ].toList(),
+                            onChanged: (val) =>
+                                setState(() => categoryValue = val),
+                            width: 180,
+                            height: 50,
+                            textStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Colors.black,
+                            ),
+                            hintText: 'Select Category',
+                            fillColor: Colors.white,
+                            elevation: 2,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0,
+                            borderRadius: 0,
+                            margin:
+                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                            hidesUnderline: true,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: fillRefNoController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Fill Ref No',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Fill Date : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
+                            style: FlutterFlowTheme.title3,
+                          ),
+                        ),
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        buttonSize: 60,
+                        icon: Icon(
+                          Icons.date_range,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          await DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            onConfirm: (date) {
+                              setState(() => datePicked2 = date);
+                            },
+                            currentTime: getCurrentTimestamp,
+                          );
+                          setState(
+                              () => FFAppState().editFillDate = datePicked2);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: fillCostController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Fill Cost',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: modeController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Mode',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: applicationReceivedController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Application Received',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: inwardController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Inward',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: approvedOnController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Approved On',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: receiptNoController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Receipt No',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Text(
+                            'Approved Date : ${dateTimeFormat('d/M/y', FFAppState().approvedDate)}',
+                            style: FlutterFlowTheme.title3,
+                          ),
+                        ),
+                      ),
+                      FlutterFlowIconButton(
+                        borderColor: Colors.transparent,
+                        borderRadius: 30,
+                        borderWidth: 1,
+                        buttonSize: 60,
+                        icon: Icon(
+                          Icons.date_range,
+                          color: Colors.black,
+                          size: 30,
+                        ),
+                        onPressed: () async {
+                          await DatePicker.showDatePicker(
+                            context,
+                            showTitleActions: true,
+                            onConfirm: (date) {
+                              setState(() => datePicked3 = date);
+                            },
+                            currentTime: getCurrentTimestamp,
+                          );
+                          setState(
+                              () => FFAppState().editAprovedDate = datePicked3);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: 330,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                            child: TextFormField(
+                              controller: remarksController,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText: 'Remarks',
+                                labelStyle: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Montserrat',
+                                  color: Color(0xFF8B97A2),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0x00000000),
+                                    width: 1,
+                                  ),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(4.0),
+                                    topRight: Radius.circular(4.0),
+                                  ),
+                                ),
+                              ),
+                              style: FlutterFlowTheme.bodyText2.override(
+                                fontFamily: 'Montserrat',
+                                color: Color(0xFF8B97A2),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 300,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFFE6E6E6),
+                            ),
+                          ),
+                          child: Image.network(
+                            FFAppState().memberImgPath,
+                            width: 100,
+                            height: 300,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+                      child: FFButtonWidget(
+                        onPressed: () async {
+                          final selectedMedia =
+                              await selectMediaWithSourceBottomSheet(
+                            context: context,
+                            allowPhoto: true,
+                          );
+                          if (selectedMedia != null &&
+                              validateFileFormat(
+                                  selectedMedia.storagePath, context)) {
+                            showUploadMessage(context, 'Uploading file...',
+                                showLoading: true);
+                            final downloadUrl = await uploadData(
+                                selectedMedia.storagePath, selectedMedia.bytes);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            if (downloadUrl != null) {
+                              setState(() => uploadedFileUrl = downloadUrl);
+                              showUploadMessage(context, 'Success!');
+                            } else {
+                              showUploadMessage(
+                                  context, 'Failed to upload media');
+                              return;
+                            }
+                          }
+                          setState(() =>
+                              FFAppState().memberImgPath = uploadedFileUrl);
+                        },
+                        text: 'Upload',
+                        options: FFButtonOptions(
+                          width: 130,
+                          height: 40,
+                          color: FlutterFlowTheme.primaryColor,
+                          textStyle: FlutterFlowTheme.subtitle2.override(
+                            fontFamily: 'Poppins',
+                            color: Colors.white,
+                          ),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
+                          ),
+                          borderRadius: 12,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -650,12 +1999,34 @@ class _EditMemberWidgetState extends State<EditMemberWidget> {
                               office: officeController.text,
                               pincode: int.parse(pinCodeController.text),
                               taluk: talukController.text,
+                              panNumber: panNoController.text,
+                              gstinNumber: gstinNoController.text,
+                              webDetail: webDetailController.text,
+                              phone: phoneController.text,
+                              dateOfEstablishment: FFAppState().editDateOfEst,
+                              partnerName1: parterName1Controller.text,
+                              partnerName2: parterName2Controller.text,
+                              partnerEmail1: parterEmail1Controller.text,
+                              partnerEmail2: parterEmail2Controller.text,
+                              categories: categoryValue,
+                              fillRefNo: fillRefNoController.text,
+                              fillDate: FFAppState().editFillDate,
+                              fillCost: fillCostController.text,
+                              mode: modeController.text,
+                              applicationReceived:
+                                  applicationReceivedController.text,
+                              inward: inwardController.text,
+                              approvedOn: approvedOnController.text,
+                              receiptNo: receiptNoController.text,
+                              approvedDate: FFAppState().editAprovedDate,
+                              remarks: remarksController.text,
+                              memberImgPath: FFAppState().editMemberImgPath,
                             );
                             await widget.memberRef.reference
                                 .update(membersUpdateData);
                             Navigator.pop(context);
                           },
-                          text: 'Add',
+                          text: 'Update',
                           options: FFButtonOptions(
                             width: 140,
                             height: 60,

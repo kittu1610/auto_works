@@ -276,7 +276,7 @@ class _AddIncomeWidgetState extends State<AddIncomeWidget> {
                           ),
                           alignment: AlignmentDirectional(0, 0),
                           child: Text(
-                            dateTimeFormat('d/M/y', FFAppState().incomeDate),
+                            'Date : ${dateTimeFormat('d/M/y', FFAppState().incomeDate)}',
                             style: FlutterFlowTheme.title3,
                           ),
                         ),
