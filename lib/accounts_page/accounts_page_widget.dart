@@ -1,3 +1,7 @@
+import 'package:auto_works/table_pages/balance_sheets.dart';
+import 'package:auto_works/table_pages/income_and_expenditure.dart';
+import 'package:auto_works/table_pages/receipt_and_payment.dart';
+
 import '../add_expense/add_expense_widget.dart';
 import '../add_income/add_income_widget.dart';
 import '../auth/auth_util.dart';
@@ -569,73 +573,60 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                          color: Color(0x00EEEEEE),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0, 20, 0, 20),
-                                          child: Card(
-                                            clipBehavior:
-                                                Clip.antiAliasWithSaveLayer,
-                                            color: Color(0xFFF5F5F5),
-                                            elevation: 4,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(20, 20, 20, 20),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                12, 0, 0, 0),
-                                                    child: Text(
-                                                      'Total Balance',
-                                                      style: FlutterFlowTheme
-                                                          .title2,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 20, 0, 20),
+                                        child: Card(
+                                          clipBehavior:
+                                              Clip.antiAliasWithSaveLayer,
+                                          color: Color(0xFFF5F5F5),
+                                          elevation: 4,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 20, 20, 20),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(12, 0, 0, 0),
+                                                  child: Text(
+                                                    '        Total Balance       ',
+                                                    style:
+                                                        FlutterFlowTheme.title2,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(12, 4, 0, 0),
+                                                  child: Text(
+                                                    valueOrDefault<String>(
+                                                      functions
+                                                          .total(
+                                                              functions.getIncome(
+                                                                  containerIncomeRecordList
+                                                                      .toList()),
+                                                              functions.getExpense(
+                                                                  containerExpenseRecordList
+                                                                      .toList()))
+                                                          .toString(),
+                                                      '0.0',
+                                                    ),
+                                                    style: FlutterFlowTheme
+                                                        .title1
+                                                        .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.black,
+                                                      fontSize: 32,
                                                     ),
                                                   ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                12, 4, 0, 0),
-                                                    child: Text(
-                                                      valueOrDefault<String>(
-                                                        functions
-                                                            .total(
-                                                                functions.getIncome(
-                                                                    containerIncomeRecordList
-                                                                        .toList()),
-                                                                functions.getExpense(
-                                                                    containerExpenseRecordList
-                                                                        .toList()))
-                                                            .toString(),
-                                                        '0.0',
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                          .title1
-                                                          .override(
-                                                        fontFamily: 'Poppins',
-                                                        color: Colors.black,
-                                                        fontSize: 32,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -661,7 +652,165 @@ class _AccountsPageWidgetState extends State<AccountsPageWidget> {
                                               size: 15,
                                             ),
                                             options: FFButtonOptions(
-                                              width: 140,
+                                              width: 300,
+                                              height: 60,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                              elevation: 2,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2,
+                                              ),
+                                              borderRadius: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 16, 0, 16),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              // await Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //     builder: (context) =>
+                                              //         BalanceSheets(),
+                                              //   ),
+                                              // );
+                                              // await actions.download(
+                                              //   containerIncomeRecordList
+                                              //       .toList(),
+                                              //   containerExpenseRecordList
+                                              //       .toList(),
+                                              // );
+                                            },
+                                            text: 'Balance Sheet',
+                                            icon: Icon(
+                                              Icons.file_download,
+                                              size: 15,
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 300,
+                                              height: 60,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                              elevation: 2,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2,
+                                              ),
+                                              borderRadius: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 16, 0, 16),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              // await actions.download(
+                                              //   containerIncomeRecordList
+                                              //       .toList(),
+                                              //   containerExpenseRecordList
+                                              //       .toList(),
+                                              // );
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ReceiptAndPayment(
+                                                    income:
+                                                        containerIncomeRecordList
+                                                            .toList(),
+                                                    expense:
+                                                        containerExpenseRecordList
+                                                            .toList(),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            text: 'Receipts & payments',
+                                            icon: Icon(
+                                              Icons.file_download,
+                                              size: 15,
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 300,
+                                              height: 60,
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              textStyle: FlutterFlowTheme.title3
+                                                  .override(
+                                                fontFamily: 'Poppins',
+                                                color: FlutterFlowTheme
+                                                    .tertiaryColor,
+                                              ),
+                                              elevation: 2,
+                                              borderSide: BorderSide(
+                                                color: Colors.transparent,
+                                                width: 2,
+                                              ),
+                                              borderRadius: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 16, 0, 16),
+                                          child: FFButtonWidget(
+                                            onPressed: () async {
+                                              // await actions.download(
+                                              //   containerIncomeRecordList
+                                              //       .toList(),
+                                              //   containerExpenseRecordList
+                                              //       .toList(),
+                                              // );
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      IncomeAndExpenditure(
+                                                    income:
+                                                        containerIncomeRecordList
+                                                            .toList(),
+                                                    expense:
+                                                        containerExpenseRecordList
+                                                            .toList(),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            text: 'Income & Expenditure',
+                                            icon: Icon(
+                                              Icons.file_download,
+                                              size: 15,
+                                            ),
+                                            options: FFButtonOptions(
+                                              width: 300,
                                               height: 60,
                                               color:
                                                   FlutterFlowTheme.primaryColor,

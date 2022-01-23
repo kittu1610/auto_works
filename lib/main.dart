@@ -1,26 +1,23 @@
+import 'package:auto_works/login_page/login_page_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'auth/firebase_user_provider.dart';
-import 'auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
-import 'package:auto_works/login_page/login_page_widget.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
 import 'accounts_page/accounts_page_widget.dart';
+import 'auth/auth_util.dart';
+import 'auth/firebase_user_provider.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
 import 'members_page/members_page_widget.dart';
 import 'profile_page/profile_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -43,7 +40,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     authUserSub.cancel();
-
     super.dispose();
   }
 
@@ -84,7 +80,6 @@ class NavBarPage extends StatefulWidget {
   _NavBarPageState createState() => _NavBarPageState();
 }
 
-/// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
   String _currentPage = 'AccountsPage';
 
